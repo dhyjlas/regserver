@@ -8,11 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class ExcelUtils<BaseEntity> {
+public class ExcelUtils<T> {
     private String filePath;
-    private List<BaseEntity> dataList;
+    private List<T> dataList;
 
-    public ExcelUtils(String filePath, List<BaseEntity> dataList){
+    public ExcelUtils(String filePath, List<T> dataList){
         this.filePath = filePath;
         this.dataList = dataList;
     }
@@ -37,6 +37,6 @@ public class ExcelUtils<BaseEntity> {
     public void setHeader(Row row){
     }
 
-    public void setCell(Row row, BaseEntity entity){
+    public void setCell(Row row, T entity){
     }
 }

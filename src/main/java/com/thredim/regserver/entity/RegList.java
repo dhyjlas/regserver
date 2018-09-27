@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "t_reg_list")
-public class RegList implements BaseEntity{
+public class RegList {
     private long id;
     private String customerNo;
     private String pollCode;

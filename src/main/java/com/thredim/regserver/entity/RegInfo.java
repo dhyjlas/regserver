@@ -1,11 +1,10 @@
 package com.thredim.regserver.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "t_reg_info")
-public class RegInfo implements BaseEntity{
+public class RegInfo {
     private long id;
     private String customerNo;
     private String pollCode;
