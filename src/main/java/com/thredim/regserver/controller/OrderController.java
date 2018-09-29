@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,11 @@ public class OrderController {
                            @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber){
 
         Page<RegInfo> dataPage = orderService.list(page, size, sort, direction, customerNo, companyName, orderNumber);
+
+        long serial = 1;
+        for(RegInfo regInfo : dataPage){
+            regInfo.setSerial((serial++) + dataPage.getNumber() * dataPage.getSize());
+        }
 
         return RestResult.getSuccess("查询成功").setObject(dataPage);
     }
@@ -135,7 +141,7 @@ public class OrderController {
             path.mkdir();
         }
 
-        File file = new File(downloadPath + new Date().getTime() + ".xlsx");
+        File file = new File(downloadPath + new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date()) + ".xlsx");
         ExcelUtils<RegInfo> utils = new ExcelUtils<RegInfo>(file.toString(), dataPage.getContent()){
             @Override
             public void setHeader(Row row){

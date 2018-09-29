@@ -45,6 +45,7 @@ public class ActiveController {
         Page<RegList> dataPage = activeService.list(page, size, sort, direction, customerNo, pollCode, equipmentId);
         setTimeStr(dataPage);
 
+
         return RestResult.getSuccess("查询成功").setObject(dataPage);
     }
 
@@ -83,7 +84,7 @@ public class ActiveController {
             path.mkdir();
         }
 
-        File file = new File(downloadPath + new Date().getTime() + ".xlsx");
+        File file = new File(downloadPath + new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date()) + ".xlsx");
         ExcelUtils<RegList> utils = new ExcelUtils<RegList>(file.toString(), dataPage.getContent()){
             @Override
             public void setHeader(Row row){
@@ -110,6 +111,7 @@ public class ActiveController {
     }
 
     public void setTimeStr(Page<RegList> dataPage){
+        long serial = 1;
         for(RegList regList : dataPage.getContent()){
             if(regList.getFirstRegTime() != null) {
                 regList.setFirstRegStr(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(regList.getFirstRegTime()));
@@ -117,6 +119,7 @@ public class ActiveController {
             if(regList.getLastRegTime() != null) {
                 regList.setLastRegStr(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(regList.getLastRegTime()));
             }
+            regList.setSerial((serial++) + dataPage.getNumber() * dataPage.getSize());
         }
     }
 }

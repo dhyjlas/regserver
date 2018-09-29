@@ -13,6 +13,8 @@ public class RegInfo {
     private int activeNum;
     private String orderNumber;
 
+    private long serial;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
@@ -75,5 +77,14 @@ public class RegInfo {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    @Transient
+    public long getSerial() {
+        return serial;
+    }
+
+    public void setSerial(long serial) {
+        this.serial = serial;
     }
 }

@@ -13,6 +13,7 @@ public class RegList {
     private Date firstRegTime;
     private Date lastRegTime;
 
+    private long serial;
     private String firstRegStr;
     private String lastRegStr;
 
@@ -58,11 +59,11 @@ public class RegList {
         return firstRegTime;
     }
 
-    @Column(name="last_reg_time")
     public void setFirstRegTime(Date firstRegTime) {
         this.firstRegTime = firstRegTime;
     }
 
+    @Column(name="last_reg_time")
     public Date getLastRegTime() {
         return lastRegTime;
     }
@@ -71,6 +72,16 @@ public class RegList {
         this.lastRegTime = lastRegTime;
     }
 
+    @Transient
+    public long getSerial() {
+        return serial;
+    }
+
+    public void setSerial(long serial) {
+        this.serial = serial;
+    }
+
+    @Transient
     public String getFirstRegStr() {
         return firstRegStr;
     }
@@ -79,6 +90,7 @@ public class RegList {
         this.firstRegStr = firstRegStr;
     }
 
+    @Transient
     public String getLastRegStr() {
         return lastRegStr;
     }
