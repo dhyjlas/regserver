@@ -37,10 +37,15 @@ public class ActiveController {
     public RestResult list(@RequestParam(value = "page", defaultValue = "0") int page,
                            @RequestParam(value = "size", defaultValue = "10") int size,
                            @RequestParam(value = "sort", defaultValue = "id") String sort,
-                           @RequestParam(value = "direction", defaultValue = "asc") String direction,
+                           @RequestParam(value = "direction", defaultValue = "desc") String direction,
                            @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
                            @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
                            @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId){
+
+        if("firstRegStr".equals(sort))
+            sort = "firstRegTime";
+        if("lastRegStr".equals(sort))
+            sort = "lastRegTime";
 
         Page<RegList> dataPage = activeService.list(page, size, sort, direction, customerNo, pollCode, equipmentId);
         setTimeStr(dataPage);
@@ -71,10 +76,15 @@ public class ActiveController {
      */
     @GetMapping("server/active/download")
     public ResponseEntity<FileSystemResource> download(@RequestParam(value = "sort", defaultValue = "id") String sort,
-                                                       @RequestParam(value = "direction", defaultValue = "asc") String direction,
+                                                       @RequestParam(value = "direction", defaultValue = "desc") String direction,
                                                        @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
                                                        @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
                                                        @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId) throws IOException {
+
+        if("firstRegStr".equals(sort))
+            sort = "firstRegTime";
+        if("lastRegStr".equals(sort))
+            sort = "lastRegTime";
 
         Page<RegList> dataPage = activeService.list(sort, direction, customerNo, pollCode, equipmentId);
         setTimeStr(dataPage);

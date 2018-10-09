@@ -3,6 +3,9 @@ package com.thredim.regserver.entity;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 用户实体类
+ */
 @Entity
 @Table(name = "t_user")
 public class User {
@@ -20,6 +23,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", columnDefinition="bigint COMMENT 'ID'")
     public long getId() {
         return id;
     }
@@ -28,7 +32,7 @@ public class User {
         this.id = id;
     }
 
-    @Column(name="password")
+    @Column(name="password", columnDefinition="varchar(255) COMMENT '密码'")
     public String getPassword() {
         return password;
     }

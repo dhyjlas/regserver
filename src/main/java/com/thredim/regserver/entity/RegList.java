@@ -3,6 +3,9 @@ package com.thredim.regserver.entity;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 激活信息实体类
+ */
 @Entity
 @Table(name = "t_reg_list")
 public class RegList {
@@ -19,6 +22,7 @@ public class RegList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", columnDefinition="bigint COMMENT 'ID'")
     public long getId() {
         return id;
     }
@@ -27,7 +31,7 @@ public class RegList {
         this.id = id;
     }
 
-    @Column(name="customer_no")
+    @Column(name="customer_no", columnDefinition="varchar(255) COMMENT '客户号'")
     public String getCustomerNo() {
         return customerNo;
     }
@@ -36,7 +40,7 @@ public class RegList {
         this.customerNo = customerNo;
     }
 
-    @Column(name="poll_code")
+    @Column(name="poll_code", columnDefinition="varchar(255) COMMENT '激活码'")
     public String getPollCode() {
         return pollCode;
     }
@@ -45,7 +49,7 @@ public class RegList {
         this.pollCode = pollCode;
     }
 
-    @Column(name="equipment_id")
+    @Column(name="equipment_id", columnDefinition="varchar(255) COMMENT '设备唯一标识'")
     public String getEquipmentId() {
         return equipmentId;
     }
@@ -54,7 +58,7 @@ public class RegList {
         this.equipmentId = equipmentId;
     }
 
-    @Column(name="first_reg_time")
+    @Column(name="first_reg_time", columnDefinition="datetime COMMENT '首次激活时间'")
     public Date getFirstRegTime() {
         return firstRegTime;
     }
@@ -63,7 +67,7 @@ public class RegList {
         this.firstRegTime = firstRegTime;
     }
 
-    @Column(name="last_reg_time")
+    @Column(name="last_reg_time", columnDefinition="datetime COMMENT '最后一次激活时间'")
     public Date getLastRegTime() {
         return lastRegTime;
     }

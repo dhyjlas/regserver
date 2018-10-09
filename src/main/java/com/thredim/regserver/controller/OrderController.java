@@ -46,7 +46,7 @@ public class OrderController {
     public RestResult list(@RequestParam(value = "page", defaultValue = "0") int page,
                            @RequestParam(value = "size", defaultValue = "10") int size,
                            @RequestParam(value = "sort", defaultValue = "id") String sort,
-                           @RequestParam(value = "direction", defaultValue = "asc") String direction,
+                           @RequestParam(value = "direction", defaultValue = "desc") String direction,
                            @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
                            @RequestParam(value = "companyName", defaultValue = "") String companyName,
                            @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber){
@@ -129,7 +129,7 @@ public class OrderController {
      */
     @GetMapping("server/order/download")
     public ResponseEntity<FileSystemResource> download(@RequestParam(value = "sort", defaultValue = "id") String sort,
-                                                       @RequestParam(value = "direction", defaultValue = "asc") String direction,
+                                                       @RequestParam(value = "direction", defaultValue = "desc") String direction,
                                                        @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
                                                        @RequestParam(value = "companyName", defaultValue = "") String companyName,
                                                        @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber) throws IOException {
@@ -167,5 +167,19 @@ public class OrderController {
         utils.output();
 
         return ResponseUtils.download(file);
+    }
+
+    @GetMapping("server/order/key")
+    public ResponseEntity<FileSystemResource> getKeyFile(@RequestParam long id) throws Exception {
+        RegInfo regInfo = orderService.getRegInfoById(id);
+
+        File path = new File(downloadPath);
+        if(!path.exists() || !path.isDirectory()){
+            path.mkdir();
+        }
+
+        File file = new File(downloadPath + new Date().getTime() + ".key");
+        orderService.setKeyFile(file, regInfo);
+        return ResponseUtils.download(file, "ThreDim.key");
     }
 }

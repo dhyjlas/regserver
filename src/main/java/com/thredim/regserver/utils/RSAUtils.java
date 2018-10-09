@@ -416,42 +416,42 @@ public class RSAUtils {
 //        String  publicKey = keyMap.get("publicKey");
 //        String  privateKey = keyMap.get("privateKey");
 
-		String PUCLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCaUGFIbOzTN5yTK89jDtjldyhK" + "\r" +
-				"nicFLMCTsmSRmyY8LbPvfJ4Y04KgDgwuEY_puaHYCEi4A1iuC0AMC2NRbdfmV9YT" + "\r" +
-				"Hc842zu5ERt2iHlhi2jMoAOC7FSESc_Yqz2R8RYnM5kbo1kCKTtr-HgMOS4N0gD3" + "\r" +
-				"8-8mRtge_gT1d9Ry3QIDAQAB" + "\r";
-		String PRIVATE_KEY = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJpQYUhs7NM3nJMr" + "\r" +
-				"z2MO2OV3KEqeJwUswJOyZJGbJjwts-98nhjTgqAODC4Rj-m5odgISLgDWK4LQAwL" + "\r" +
-				"Y1Ft1-ZX1hMdzzjbO7kRG3aIeWGLaMygA4LsVIRJz9irPZHxFiczmRujWQIpO2v4" + "\r" +
-				"eAw5Lg3SAPfz7yZG2B7-BPV31HLdAgMBAAECgYBuE_Sxk3IE4eDBYzkXMpoqZivJ" + "\r" +
-				"vrObD2d4dIMlEwXdW8TFi6HDl-3QevTZUBHW6mK3FoG5MjnqPYA8l0sL5U1imajP" + "\r" +
-				"gyNK902rywdXLOx5aLOi4KIyKovb99HdWIelNbZlUurYuxg3qWgX-Z0QpiuJRHyc" + "\r" +
-				"WFQvrIFXufa8hy5tCQJBAMcKR2OJMpQjgTvc0wOn-CKQzsl-MHkypV4OMZ6-pxku" + "\r" +
-				"2OAm5ZdwY1Ey_skl156kH2b__hEU1TwY3f0z_qXKs0MCQQDGeXQGe7L2q-i2fFGN" + "\r" +
-				"tn1_8koPv9gwnxd3mhDrG-ny5u2MS97b5sP2OoNGwJ7tumsYDhS5Wm56ETo3geOR" + "\r" +
-				"SQ9fAkBrZMdqFF_fAF09kIOmqF3BQMLigxzieAoz-pKZZaNBej54i2Q71t8vs8U3" + "\r" +
-				"gRybM1DiQWOzkbsQJxa4BPL0P6-DAkA0ARbZrAfUgm7TgfeMfkicAcxOHCJ1evoX" + "\r" +
-				"KJNOR14he0i6_hZC4FBwcBx9qXL7L2FoSCg9-OgBrAnpCWurYc1ZAkEAn3RvmkXR" + "\r" +
-				"wNHGm3jHUxxTEZvVMjtEWOajx1ndP8FSKtoNIjBv6lOhHP69gtgweqNQK7MpdTKG" + "\r" +
-				"cb72CsPoPrU3iQ=" + "\r";
-//		String PUCLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCfRTdcPIH10gT9f31rQuIInLwe" + "\r"
-//				+ "7fl2dtEJ93gTmjE9c2H+kLVENWgECiJVQ5sonQNfwToMKdO0b3Olf4pgBKeLThra" + "\r"
-//				+ "z/L3nYJYlbqjHC3jTjUnZc0luumpXGsox62+PuSGBlfb8zJO6hix4GV/vhyQVCpG" + "\r"
-//				+ "9aYqgE7zyTRZYX9byQIDAQAB" + "\r";
-//		String PRIVATE_KEY = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJ9FN1w8gfXSBP1/" + "\r"
-//				+ "fWtC4gicvB7t+XZ20Qn3eBOaMT1zYf6QtUQ1aAQKIlVDmyidA1/BOgwp07Rvc6V/" + "\r"
-//				+ "imAEp4tOGtrP8vedgliVuqMcLeNONSdlzSW66alcayjHrb4+5IYGV9vzMk7qGLHg" + "\r"
-//				+ "ZX++HJBUKkb1piqATvPJNFlhf1vJAgMBAAECgYA736xhG0oL3EkN9yhx8zG/5RP/" + "\r"
-//				+ "WJzoQOByq7pTPCr4m/Ch30qVerJAmoKvpPumN+h1zdEBk5PHiAJkm96sG/PTndEf" + "\r"
-//				+ "kZrAJ2hwSBqptcABYk6ED70gRTQ1S53tyQXIOSjRBcugY/21qeswS3nMyq3xDEPK" + "\r"
-//				+ "XpdyKPeaTyuK86AEkQJBAM1M7p1lfzEKjNw17SDMLnca/8pBcA0EEcyvtaQpRvaL" + "\r"
-//				+ "n61eQQnnPdpvHamkRBcOvgCAkfwa1uboru0QdXii/gUCQQDGmkP+KJPX9JVCrbRt" + "\r"
-//				+ "7wKyIemyNM+J6y1ZBZ2bVCf9jacCQaSkIWnIR1S9UM+1CFE30So2CA0CfCDmQy+y" + "\r"
-//				+ "7A31AkB8cGFB7j+GTkrLP7SX6KtRboAU7E0q1oijdO24r3xf/Imw4Cy0AAIx4KAu" + "\r"
-//				+ "L29GOp1YWJYkJXCVTfyZnRxXHxSxAkEAvO0zkSv4uI8rDmtAIPQllF8+eRBT/deD" + "\r"
-//				+ "JBR7ga/k+wctwK/Bd4Fxp9xzeETP0l8/I+IOTagK+Dos8d8oGQUFoQJBAI4Nwpfo" + "\r"
-//				+ "MFaLJXGY9ok45wXrcqkJgM+SN6i8hQeujXESVHYatAIL/1DgLi+u46EFD69fw0w+" + "\r"
-//				+ "c7o0HLlMsYPAzJw="+ "\r";
+//		String PUCLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCaUGFIbOzTN5yTK89jDtjldyhK" + "\r" +
+//				"nicFLMCTsmSRmyY8LbPvfJ4Y04KgDgwuEY_puaHYCEi4A1iuC0AMC2NRbdfmV9YT" + "\r" +
+//				"Hc842zu5ERt2iHlhi2jMoAOC7FSESc_Yqz2R8RYnM5kbo1kCKTtr-HgMOS4N0gD3" + "\r" +
+//				"8-8mRtge_gT1d9Ry3QIDAQAB" + "\r";
+//		String PRIVATE_KEY = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJpQYUhs7NM3nJMr" + "\r" +
+//				"z2MO2OV3KEqeJwUswJOyZJGbJjwts-98nhjTgqAODC4Rj-m5odgISLgDWK4LQAwL" + "\r" +
+//				"Y1Ft1-ZX1hMdzzjbO7kRG3aIeWGLaMygA4LsVIRJz9irPZHxFiczmRujWQIpO2v4" + "\r" +
+//				"eAw5Lg3SAPfz7yZG2B7-BPV31HLdAgMBAAECgYBuE_Sxk3IE4eDBYzkXMpoqZivJ" + "\r" +
+//				"vrObD2d4dIMlEwXdW8TFi6HDl-3QevTZUBHW6mK3FoG5MjnqPYA8l0sL5U1imajP" + "\r" +
+//				"gyNK902rywdXLOx5aLOi4KIyKovb99HdWIelNbZlUurYuxg3qWgX-Z0QpiuJRHyc" + "\r" +
+//				"WFQvrIFXufa8hy5tCQJBAMcKR2OJMpQjgTvc0wOn-CKQzsl-MHkypV4OMZ6-pxku" + "\r" +
+//				"2OAm5ZdwY1Ey_skl156kH2b__hEU1TwY3f0z_qXKs0MCQQDGeXQGe7L2q-i2fFGN" + "\r" +
+//				"tn1_8koPv9gwnxd3mhDrG-ny5u2MS97b5sP2OoNGwJ7tumsYDhS5Wm56ETo3geOR" + "\r" +
+//				"SQ9fAkBrZMdqFF_fAF09kIOmqF3BQMLigxzieAoz-pKZZaNBej54i2Q71t8vs8U3" + "\r" +
+//				"gRybM1DiQWOzkbsQJxa4BPL0P6-DAkA0ARbZrAfUgm7TgfeMfkicAcxOHCJ1evoX" + "\r" +
+//				"KJNOR14he0i6_hZC4FBwcBx9qXL7L2FoSCg9-OgBrAnpCWurYc1ZAkEAn3RvmkXR" + "\r" +
+//				"wNHGm3jHUxxTEZvVMjtEWOajx1ndP8FSKtoNIjBv6lOhHP69gtgweqNQK7MpdTKG" + "\r" +
+//				"cb72CsPoPrU3iQ=" + "\r";
+		String PUCLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCfRTdcPIH10gT9f31rQuIInLwe" + "\r"
+				+ "7fl2dtEJ93gTmjE9c2H+kLVENWgECiJVQ5sonQNfwToMKdO0b3Olf4pgBKeLThra" + "\r"
+				+ "z/L3nYJYlbqjHC3jTjUnZc0luumpXGsox62+PuSGBlfb8zJO6hix4GV/vhyQVCpG" + "\r"
+				+ "9aYqgE7zyTRZYX9byQIDAQAB" + "\r";
+		String PRIVATE_KEY = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJ9FN1w8gfXSBP1/" + "\r"
+				+ "fWtC4gicvB7t+XZ20Qn3eBOaMT1zYf6QtUQ1aAQKIlVDmyidA1/BOgwp07Rvc6V/" + "\r"
+				+ "imAEp4tOGtrP8vedgliVuqMcLeNONSdlzSW66alcayjHrb4+5IYGV9vzMk7qGLHg" + "\r"
+				+ "ZX++HJBUKkb1piqATvPJNFlhf1vJAgMBAAECgYA736xhG0oL3EkN9yhx8zG/5RP/" + "\r"
+				+ "WJzoQOByq7pTPCr4m/Ch30qVerJAmoKvpPumN+h1zdEBk5PHiAJkm96sG/PTndEf" + "\r"
+				+ "kZrAJ2hwSBqptcABYk6ED70gRTQ1S53tyQXIOSjRBcugY/21qeswS3nMyq3xDEPK" + "\r"
+				+ "XpdyKPeaTyuK86AEkQJBAM1M7p1lfzEKjNw17SDMLnca/8pBcA0EEcyvtaQpRvaL" + "\r"
+				+ "n61eQQnnPdpvHamkRBcOvgCAkfwa1uboru0QdXii/gUCQQDGmkP+KJPX9JVCrbRt" + "\r"
+				+ "7wKyIemyNM+J6y1ZBZ2bVCf9jacCQaSkIWnIR1S9UM+1CFE30So2CA0CfCDmQy+y" + "\r"
+				+ "7A31AkB8cGFB7j+GTkrLP7SX6KtRboAU7E0q1oijdO24r3xf/Imw4Cy0AAIx4KAu" + "\r"
+				+ "L29GOp1YWJYkJXCVTfyZnRxXHxSxAkEAvO0zkSv4uI8rDmtAIPQllF8+eRBT/deD" + "\r"
+				+ "JBR7ga/k+wctwK/Bd4Fxp9xzeETP0l8/I+IOTagK+Dos8d8oGQUFoQJBAI4Nwpfo" + "\r"
+				+ "MFaLJXGY9ok45wXrcqkJgM+SN6i8hQeujXESVHYatAIL/1DgLi+u46EFD69fw0w+" + "\r"
+				+ "c7o0HLlMsYPAzJw="+ "\r";
 		System.out.println("公钥： \n\r" + PUCLIC_KEY);
 		System.out.println("私钥： \n\r" + PRIVATE_KEY);
 
@@ -460,7 +460,7 @@ public class RSAUtils {
 		String pollCode = "700A-12358-D2500-E9DC5-AEB99";               //批量注册号
 		Map<String, String> content = new HashMap<>();
 		content.put("customerNo", customerNo);
-		content.put("equipmentId", equipmentId);
+//		content.put("equipmentId", equipmentId);
 		content.put("pollCode", pollCode);
 		String str = JSON.toJSONString(content);
 
@@ -472,6 +472,7 @@ public class RSAUtils {
 
 //		String encodedData = RSAUtils2.publicEncrypt(str, RSAUtils2.getPublicKey(publicKey));
 		System.out.println("密文：\r\n" + encodedData);
+		encodedData = "g/Bga8g4VV267MyZanHjk5PaYqlgvSF8O4i0cRVdYkj/SycseBEbsJ4y0KZGFvH9rMQ4OOPzNU9sb7pNd4xHELAbWuifGkGlKpd2pJ+jgcHfXJKwCvOMZpc1IUU9ocdHdvTpYqA8F6Zyw8qneB+u+yKzog0x5bM9URmZxXW8JFs=";
 		PrivateKey privateKey = RSAUtils.loadPrivateKey(PRIVATE_KEY);
 		byte[] decryptByte = RSAUtils.decryptData(Base64Utils.decode(encodedData), privateKey);
 		String decodedData = new String(decryptByte);

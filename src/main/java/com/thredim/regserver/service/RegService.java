@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,9 @@ public class RegService {
         String pollCode = dateInfo.get("pollCode");
         String equipmentId = dateInfo.get("equipmentId");
         String customerNo = dateInfo.get("customerNo");
+
+        if(StringUtils.isEmpty(equipmentId))
+            throw new BusinessException("设备号不能为空");
 
         //同步注册码使用次数
         synchronized (RegService.class){
@@ -102,6 +106,9 @@ public class RegService {
         String pollCode = dateInfo.get("pollCode");
         String equipmentId = dateInfo.get("equipmentId");
         String customerNo = dateInfo.get("customerNo");
+
+        if(StringUtils.isEmpty(equipmentId))
+            throw new BusinessException("设备号不能为空");
 
         RegAtom regAtom = RegSyncCache.getInstance().get(pollCode);
         if(regAtom == null){

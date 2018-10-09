@@ -1,11 +1,15 @@
 package com.thredim.regserver.service;
 
+import com.alibaba.fastjson.JSON;
 import com.thredim.regserver.entity.RegInfo;
 import com.thredim.regserver.exception.BusinessException;
 import com.thredim.regserver.repository.RegInfoRepository;
+import com.thredim.regserver.utils.Base64Utils;
+import com.thredim.regserver.utils.RSAUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.security.PublicKey;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -138,6 +142,45 @@ public class OrderService {
     }
 
     /**
+     * 通过ID获取订单信息
+     * @param id
+     * @return
+     */
+    public RegInfo getRegInfoById(long id){
+        return regInfoRepository.findById(id).orElse(null);
+    }
+
+    @Value("${ras.publicKey:-1}")
+    private String PUBLIC_KEY;
+
+    /**
+     * 生成密钥文件
+     * @param file
+     * @param regInfo
+     */
+    public void setKeyFile(File file, RegInfo regInfo) throws Exception {
+        if (!file.exists()) {	//文件不存在则创建文件
+            file.createNewFile();
+        }else{
+            file.delete();
+            file.createNewFile();
+        }
+
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("customerNo", regInfo.getCustomerNo());
+        keyMap.put("pollCode", regInfo.getPollCode());
+
+        String keyData = JSON.toJSONString(keyMap);
+        PublicKey publicKey = RSAUtils.loadPublicKey(PUBLIC_KEY);
+        byte[] encryptByte = RSAUtils.encryptData(keyData.getBytes(), publicKey);
+        String encodedData = Base64Utils.encode(encryptByte);
+
+        FileOutputStream outStream = new FileOutputStream(file);	//文件输出流用于将数据写入文件
+        outStream.write(encodedData.getBytes());
+        outStream.close();
+    }
+
+    /**
      * 激活码所用字符
      * 去掉了I,J,O
      */
@@ -186,6 +229,9 @@ public class OrderService {
     }
 
     public static void main (String[] args) throws Exception {
-        System.out.println(generateShortUuid());
+        RegInfo regInfo = new RegInfo();
+        regInfo.setCustomerNo("ThreDim");
+        regInfo.setPollCode("700A-12358-D2500-E9DC5-AEB99");
+        new OrderService().setKeyFile(new File("D://123.key"), regInfo);
     }
 }
