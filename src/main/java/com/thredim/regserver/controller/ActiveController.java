@@ -5,6 +5,10 @@ import com.thredim.regserver.service.ActiveService;
 import com.thredim.regserver.utils.ExcelUtils;
 import com.thredim.regserver.utils.ResponseUtils;
 import com.thredim.regserver.utils.RestResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +25,7 @@ import java.util.Date;
 /**
  * 设备信息相关接口
  */
+@Api(tags = {"设备信息相关接口"})
 @RestController
 public class ActiveController {
     @Autowired
@@ -33,14 +38,15 @@ public class ActiveController {
      * 获取激活信息
      * @return
      */
+    @ApiOperation("获取激活信息")
     @GetMapping("server/active/list")
-    public RestResult list(@RequestParam(value = "page", defaultValue = "0") int page,
-                           @RequestParam(value = "size", defaultValue = "10") int size,
-                           @RequestParam(value = "sort", defaultValue = "id") String sort,
-                           @RequestParam(value = "direction", defaultValue = "desc") String direction,
-                           @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
-                           @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
-                           @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId){
+    public RestResult list(@ApiParam("页码") @RequestParam(value = "page", defaultValue = "0") int page,
+                           @ApiParam("每页数量") @RequestParam(value = "size", defaultValue = "10") int size,
+                           @ApiParam("排序字段") @RequestParam(value = "sort", defaultValue = "id") String sort,
+                           @ApiParam("排序类型") @RequestParam(value = "direction", defaultValue = "desc") String direction,
+                           @ApiParam("客户号筛选") @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
+                           @ApiParam("激活码筛选") @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
+                           @ApiParam("设备号") @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId){
 
         if("firstRegStr".equals(sort))
             sort = "firstRegTime";
@@ -58,8 +64,9 @@ public class ActiveController {
      * 删除激活信息
      * @return
      */
+    @ApiOperation("删除激活信息")
     @DeleteMapping("server/active/{id}")
-    public RestResult delete(@PathVariable long id){
+    public RestResult delete(@ApiParam("ID") @PathVariable long id){
         activeService.delete(id);
         return RestResult.getSuccess("删除成功");
     }
@@ -74,12 +81,13 @@ public class ActiveController {
      * @return
      * @throws IOException
      */
+    @ApiOperation("导出设备信息至EXCEL文档")
     @GetMapping("server/active/download")
-    public ResponseEntity<FileSystemResource> download(@RequestParam(value = "sort", defaultValue = "id") String sort,
-                                                       @RequestParam(value = "direction", defaultValue = "desc") String direction,
-                                                       @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
-                                                       @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
-                                                       @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId) throws IOException {
+    public ResponseEntity<FileSystemResource> download(@ApiParam("排序字段") @RequestParam(value = "sort", defaultValue = "id") String sort,
+                                                       @ApiParam("排序类型") @RequestParam(value = "direction", defaultValue = "desc") String direction,
+                                                       @ApiParam("客户号筛选") @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
+                                                       @ApiParam("激活码筛选") @RequestParam(value = "pollCode", defaultValue = "") String pollCode,
+                                                       @ApiParam("设备号") @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId) throws IOException {
 
         if("firstRegStr".equals(sort))
             sort = "firstRegTime";

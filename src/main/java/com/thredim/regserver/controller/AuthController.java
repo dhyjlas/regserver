@@ -5,6 +5,9 @@ import com.thredim.regserver.repository.UserRepository;
 import com.thredim.regserver.security.AuthUtils;
 import com.thredim.regserver.utils.MD5Utils;
 import com.thredim.regserver.utils.RestResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,13 +19,15 @@ import java.util.List;
 /**
  * 身份认证
  */
+@Api(tags = {"身份认证"})
 @RestController
 public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @ApiOperation("口令验证")
     @GetMapping("auth")
-    public RestResult auth(@RequestParam String password){
+    public RestResult auth(@ApiParam("加密口令") @RequestParam String password){
         List<User> userList = userRepository.findAll();
 
         for(User user : userList){
@@ -49,6 +54,7 @@ public class AuthController {
         return RestResult.getFailed("口令错误");
     }
 
+    @ApiOperation("获取登录状态")
     @GetMapping("check")
     public RestResult check(){
         return RestResult.getSuccess();

@@ -5,6 +5,9 @@ import com.thredim.regserver.service.OrderService;
 import com.thredim.regserver.utils.ExcelUtils;
 import com.thredim.regserver.utils.ResponseUtils;
 import com.thredim.regserver.utils.RestResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +24,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 订单相关接口
+ * 密钥相关接口
  */
+@Api(tags = {"密钥信息相关接口"})
 @RestController
 public class OrderController {
     @Autowired
@@ -32,7 +36,7 @@ public class OrderController {
     private String downloadPath;
 
     /**
-     * 获取订单列表
+     * 获取密钥列表
      * @param page
      * @param size
      * @param sort
@@ -42,14 +46,15 @@ public class OrderController {
      * @param orderNumber
      * @return
      */
+    @ApiOperation("获取密钥列表")
     @GetMapping("server/order/list")
-    public RestResult list(@RequestParam(value = "page", defaultValue = "0") int page,
-                           @RequestParam(value = "size", defaultValue = "10") int size,
-                           @RequestParam(value = "sort", defaultValue = "id") String sort,
-                           @RequestParam(value = "direction", defaultValue = "desc") String direction,
-                           @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
-                           @RequestParam(value = "companyName", defaultValue = "") String companyName,
-                           @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber){
+    public RestResult list(@ApiParam("页码") @RequestParam(value = "page", defaultValue = "0") int page,
+                           @ApiParam("每页数量") @RequestParam(value = "size", defaultValue = "10") int size,
+                           @ApiParam("排序字段") @RequestParam(value = "sort", defaultValue = "id") String sort,
+                           @ApiParam("排序类型") @RequestParam(value = "direction", defaultValue = "desc") String direction,
+                           @ApiParam("客户号筛选") @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
+                           @ApiParam("客户名筛选") @RequestParam(value = "companyName", defaultValue = "") String companyName,
+                           @ApiParam("订单号筛选") @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber){
 
         Page<RegInfo> dataPage = orderService.list(page, size, sort, direction, customerNo, companyName, orderNumber);
 
@@ -62,11 +67,12 @@ public class OrderController {
     }
 
     /**
-     * 新增订单
+     * 新增密钥
      * @return
      */
+    @ApiOperation("密钥申请")
     @PostMapping("server/order")
-    public RestResult add(@RequestBody RegInfo regInfo){
+    public RestResult add(@ApiParam("申请信息") @RequestBody RegInfo regInfo){
         if(StringUtils.isEmpty(regInfo.getCustomerNo())){
             return RestResult.getFailed("客户号不能位空");
         }
@@ -87,21 +93,23 @@ public class OrderController {
     }
 
     /**
-     * 删除订单
+     * 删除密钥
      * @return
      */
+    @ApiOperation("删除密钥")
     @DeleteMapping("server/order/{id}")
-    public RestResult delete(@PathVariable long id){
+    public RestResult delete(@ApiParam("ID") @PathVariable long id){
         orderService.delete(id);
         return RestResult.getSuccess("删除成功");
     }
 
     /**
-     * 修改订单
+     * 修改密钥
      * @return
      */
+    @ApiOperation("修改密钥信息")
     @PutMapping("server/order")
-    public RestResult update(@RequestBody RegInfo regInfo){
+    public RestResult update(@ApiParam("修改信息") @RequestBody RegInfo regInfo){
         if(StringUtils.isEmpty(regInfo.getCompanyName())){
             return RestResult.getFailed("客户名不能位空");
         }
@@ -127,12 +135,13 @@ public class OrderController {
      * @param companyName
      * @param orderNumber
      */
+    @ApiOperation("导出密钥信息至EXCEL文档")
     @GetMapping("server/order/download")
-    public ResponseEntity<FileSystemResource> download(@RequestParam(value = "sort", defaultValue = "id") String sort,
-                                                       @RequestParam(value = "direction", defaultValue = "desc") String direction,
-                                                       @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
-                                                       @RequestParam(value = "companyName", defaultValue = "") String companyName,
-                                                       @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber) throws IOException {
+    public ResponseEntity<FileSystemResource> download(@ApiParam("排序字段") @RequestParam(value = "sort", defaultValue = "id") String sort,
+                                                       @ApiParam("排序类型") @RequestParam(value = "direction", defaultValue = "desc") String direction,
+                                                       @ApiParam("客户号筛选") @RequestParam(value = "customerNo", defaultValue = "") String customerNo,
+                                                       @ApiParam("客户名筛选") @RequestParam(value = "companyName", defaultValue = "") String companyName,
+                                                       @ApiParam("订单号筛选") @RequestParam(value = "orderNumber", defaultValue = "") String orderNumber) throws IOException {
 
         Page<RegInfo> dataPage = orderService.list(sort, direction, customerNo, companyName, orderNumber);
 
@@ -169,8 +178,9 @@ public class OrderController {
         return ResponseUtils.download(file);
     }
 
+    @ApiOperation("导出密钥文件")
     @GetMapping("server/order/key")
-    public ResponseEntity<FileSystemResource> getKeyFile(@RequestParam long id) throws Exception {
+    public ResponseEntity<FileSystemResource> getKeyFile(@ApiParam("ID") @RequestParam long id) throws Exception {
         RegInfo regInfo = orderService.getRegInfoById(id);
 
         File path = new File(downloadPath);
