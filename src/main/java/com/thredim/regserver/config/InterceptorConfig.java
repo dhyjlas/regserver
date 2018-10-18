@@ -25,7 +25,7 @@ public class InterceptorConfig implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o){
         httpServletResponse.setCharacterEncoding("UTF-8");
-//        httpServletResponse.setContentType("application/json; charset=utf-8");
+        httpServletResponse.setContentType("application/json; charset=utf-8");
         httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
         httpServletResponse.setHeader("Access-Control-Max-Age", "3600");
